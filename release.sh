@@ -1,4 +1,5 @@
 #!/bin/bash
+rake 
 
 if [[ -z "$1" ]]; then
     echo "Usage: <version> <module_path>"
@@ -17,13 +18,13 @@ fi
 
 VERSION=$1
 echo "Building version $VERSION"
-sed -i "s/^version '.*'/version '$VERSION'/g" Modulefile
+sed -i -e "s/^version '.*'/version '$VERSION'/g" Modulefile
 
 echo "====DIAGNOSIS====="
 echo "--- dir $(pwd)"
-ls -ltR
-#echo "--- Modulefile"
-#cat Modulefile
+ls -lt
+echo "--- Modulefile"
+cat Modulefile
 echo "====/DIAGNOSIS===="
 
 echo "Publishing $VERSION"
@@ -35,5 +36,4 @@ echo "Cleaning up"
 git checkout Modulefile
 popd
 
-rm -rf ${MODULEFULLPATH}/files
 rm -rf ${MODULEFULLPATH}/pkg
