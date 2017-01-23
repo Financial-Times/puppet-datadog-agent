@@ -175,6 +175,8 @@
 # }
 #
 #
+include stdlib
+
 class datadog_agent(
   $dd_url = 'https://app.datadoghq.com',
   $host = '',
