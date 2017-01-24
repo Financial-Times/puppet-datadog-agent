@@ -1,6 +1,4 @@
 #!/bin/bash
-rake 
-
 if [[ -z "$1" ]]; then
     echo "Usage: <version> <module_path>"
     exit 2
@@ -19,6 +17,7 @@ fi
 VERSION=$1
 echo "Building version $VERSION"
 sed -i -e "s/^version '.*'/version '$VERSION'/g" Modulefile
+sed -i -e "s/\"version\": \".+\"/\"version\": \"$VERSION\"/g" metadata.json
 
 echo "====DIAGNOSIS====="
 echo "--- dir $(pwd)"
@@ -34,6 +33,7 @@ echo "Publishing $VERSION"
 echo "Cleaning up"
 
 git checkout Modulefile
+git checkout metadata.json
 popd
 
 rm -rf ${MODULEFULLPATH}/pkg
